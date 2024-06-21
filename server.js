@@ -117,7 +117,7 @@ app.post("/api/:table/random", async (req, res) => {
       case "Position":
         const position = generateRandomPosition();
         query = `
-          INSERT INTO Position (earth_position, sun_position, moon_position)
+          INSERT INTO \`Position\` (earth_position, sun_position, moon_position)
           VALUES (?, ?, ?)
         `;
         values = [
@@ -214,7 +214,7 @@ function generateRandomObject() {
     type: faker.science.chemicalElement().name,
     accuracy: faker.number.float({ min: 0, max: 100 }),
     count: faker.number.int({ min: 1, max: 10 }),
-    time: faker.time.recent(),
+    time: faker.date.past().toISOString().split("T")[1].slice(0, -1),
     date: faker.date.past().toISOString().split("T")[0],
     notes: faker.lorem.sentence(),
   };
